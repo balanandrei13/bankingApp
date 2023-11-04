@@ -30,6 +30,15 @@ public class Bank {
         }
         return null;
     }
+    public Account getAccountByAccountNumber(String accountNumber){
+        for(Account account:this.accounts){
+            if (account.getAccountNumber().equals(accountNumber)){
+                return account;
+            }
+
+        }
+        return null;
+    }
 
 
 

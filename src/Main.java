@@ -59,6 +59,7 @@ public class Main {
                                     System.out.println("\nYou have successfully Logged In!");
                                 } else {
                                     if (counter == 0) {
+                                        counter=3;
                                         break;
                                     } else {
                                         System.out.println("\nIncorrect Password!");
@@ -70,6 +71,7 @@ public class Main {
                             counter--;
                             System.out.println("\nInvalid username, please try again. You have " + String.valueOf(counter) + " tries left.");
                             if (counter == 0) {
+                                counter=3;
                                 break;
                             }
                         }
@@ -92,13 +94,13 @@ public class Main {
                     operations.createAccount(firstName, lastName, accountNumberNew, creditNew, usernameNew, passwordNew);
                 }
             }
-            while(loggedIn){
+            while (loggedIn) {
                 Account account = bank.getAccountByUsername(username);
                 System.out.println("\nWhat would you like to do?: \n1.Withdraw \n2.Deposit \n3.Transfer \n4.Get a loan\n5.LogOut");
-                try{
-                    option=scanner.nextInt();
+                try {
+                    option = scanner.nextInt();
                     scanner.nextLine();
-                }catch (InputMismatchException a) {
+                } catch (InputMismatchException a) {
                     System.out.println("\nInvalid Input!");
                     break;
                 }
@@ -132,7 +134,7 @@ public class Main {
                             Account accountReciever;
                             System.out.println("\nTo what account would you like to make the transfer?: ");
                             accountToSend = scanner.nextLine();
-                            accountReciever = bank.getAccountByUsername(accountToSend);
+                            accountReciever = bank.getAccountByAccountNumber(accountToSend);
                             if (accountReciever != null) {
                                 System.out.println("\nHow much money would you like to send?: ");
                                 double amount = scanner.nextDouble();
@@ -154,22 +156,25 @@ public class Main {
                             System.out.println("\nInvalid Input!");
                         }
                     }
-                    case 5->{
-                        loggedIn=false;
-                    }
-                }
-                }
-                System.out.println("\nWould you like to do anything else?(Yes/No): ");
-                String finish=scanner.nextLine();
-                    if (finish.equalsIgnoreCase("yes")) {
-                        continue;
-                    } else if (finish.equalsIgnoreCase("no")) {
-                        break;
-                    } else {
-                        System.out.println("\nInvalid input!");
-                        break;
+                    case 5 -> {
+                        loggedIn = false;
                     }
                 }
             }
-
+            if (loggedIn) {
+                System.out.println("\nWould you like to do anything else?(Yes/No): ");
+                String finish = scanner.nextLine();
+                if (finish.equalsIgnoreCase("yes")) {
+                    continue;
+                } else if (finish.equalsIgnoreCase("no")) {
+                    break;
+                } else {
+                    System.out.println("\nInvalid input!");
+                    break;
+                }
+            }else{
+                break;
+            }
         }
+    }
+}
